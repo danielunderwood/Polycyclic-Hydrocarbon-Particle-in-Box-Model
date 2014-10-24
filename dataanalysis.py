@@ -29,6 +29,7 @@ elif 'tetracene' in molecule.lower():
     HOMO = 9
 else:
     print("No defined HOMO level for {0}. Exiting...".format(molecule))
+    quit()
 
 # Define LUMO Level
     LUMO = HOMO + 1
