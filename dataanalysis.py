@@ -10,7 +10,7 @@ if len(sys.argv) < 2 or sys.argv[1] == 'help' or sys.argv[1] == 'h' or sys.argv[
 # Define Constants
 h = 4.135667e-15        # Planck's constant in eV*s
 c = 299792458e9         # Speed of Light in nm/s
-me = 0.510998910e-12    # Electron Mass in eV/c^2 where c is in nm
+me = 5.10998910e-11    # Electron Mass in eV/c^2 where c is in nm
 
 
 # Set Data filename and molecule name
@@ -34,10 +34,9 @@ with open(filename, 'rb') as datafile:
             absorption.append(float(row[1]))
 
 # Max Wavelength Needed for Analysis
-# Assuming this means wavelength of max absorption
 maxAbsIndex = absorption.index(max(absorption))
 maxWavelength = wavelength[maxAbsIndex]
-print("Maximum wavelength: {0} nm".format(maxWavelength))
+print("Wavelength of max absorption: {0} nm".format(maxWavelength))
 
 # Energy Gap
 # E = hc/lambda
@@ -53,6 +52,8 @@ print("Energy level: {0}".format(n))
 plt.plot(wavelength, absorption)
 plt.title("Wavelength vs. Absorption for {0}".format(molecule))
 plt.axis([min(wavelength), max(wavelength), min(absorption), max(absorption)])
+plt.xlabel(r"$\lambda$ (nm)")
+plt.ylabel(r"$\log \epsilon$")
 plt.show()
 
 
