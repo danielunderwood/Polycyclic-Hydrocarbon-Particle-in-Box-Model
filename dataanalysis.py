@@ -32,7 +32,7 @@ else:
     quit()
 
 # Define LUMO Level
-    LUMO = HOMO + 1
+LUMO = HOMO + 1
 
 with open(filename, 'rb') as datafile:
     # Get data
@@ -58,7 +58,7 @@ E = h*c/maxWavelength
 print("Energy gap: {0} eV".format(E))
 
 # Get Energy Level Transition
-L = np.sqrt((h**2*HOMO**2)/(8*me*E))
+L = np.sqrt((h**2*LUMO**2)/(8*me*E))
 print("Length of {0}: {1}".format(molecule, L))
 
 
