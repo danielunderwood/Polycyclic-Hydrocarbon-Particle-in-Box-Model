@@ -50,10 +50,10 @@ print("Energy level: {0}".format(n))
 
 # Plot wavelength/absorption
 plt.plot(wavelength, absorption)
-plt.title("Wavelength vs. Absorption for {0}".format(molecule))
+plt.title("Wavelength vs. Absorption for {0}".format(molecule), fontsize=20)
 plt.axis([min(wavelength), max(wavelength), min(absorption), max(absorption)])
-plt.xlabel(r"$\lambda$ (nm)")
-plt.ylabel(r"$\log \epsilon$")
+plt.xlabel(r"$\lambda$ (nm)", fontsize=16)
+plt.ylabel(r"$\log \epsilon$", fontsize=16)
 plt.show()
 
 
