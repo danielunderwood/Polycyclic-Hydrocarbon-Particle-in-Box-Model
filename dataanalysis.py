@@ -1,5 +1,6 @@
 import sys
 import csv
+import numpy as np
 import matplotlib.pyplot as plt
 
 if len(sys.argv) < 2 or sys.argv[1] == 'help' or sys.argv[1] == 'h' or sys.argv[1] == '--help':
@@ -8,7 +9,8 @@ if len(sys.argv) < 2 or sys.argv[1] == 'help' or sys.argv[1] == 'h' or sys.argv[
 
 # Define Constants
 h = 4.135667e-15    # Planck's constant in eV*s
-c = 299792458e9    # Speed of Light in nm/s
+c = 299792458e9     # Speed of Light in nm/s
+me = 9.10938e-31    # Electron Mass in kg
 
 
 # Set Data filename and molecule name
@@ -41,6 +43,10 @@ print("Maximum wavelength: {0} nm".format(maxWavelength))
 # E = hc/lambda
 E = h*c/maxWavelength
 print("Energy gap: {0} eV".format(E))
+
+# Get Energy Level Transition
+n = np.sqrt((8*E*me*maxWavelength*2)/(h**2))
+print("Energy level: {0}".format(n))
 
 
 # Plot wavelength/absorption
