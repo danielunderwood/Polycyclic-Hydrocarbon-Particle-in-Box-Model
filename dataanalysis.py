@@ -8,9 +8,9 @@ if len(sys.argv) < 2 or sys.argv[1] == 'help' or sys.argv[1] == 'h' or sys.argv[
     quit()
 
 # Define Constants
-h = 4.135667e-15    # Planck's constant in eV*s
-c = 299792458e9     # Speed of Light in nm/s
-me = 9.10938e-31    # Electron Mass in kg
+h = 4.135667e-15        # Planck's constant in eV*s
+c = 299792458e9         # Speed of Light in nm/s
+me = 0.510998910e-12    # Electron Mass in eV/c^2 where c is in nm
 
 
 # Set Data filename and molecule name
