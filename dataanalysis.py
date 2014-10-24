@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 if len(sys.argv) < 2 or sys.argv[1] == 'help' or sys.argv[1] == 'h' or sys.argv[1] == '--help':
-    print "Usage: python dataanalysis.py <filename> [molecule]"
+    print "Usage: python dataanalysis.py <filename1> <molecule1> ... <filenameN> <moleculeN>"
     quit()
 
 # Define Constants
@@ -13,70 +13,86 @@ c = 299792458e9         # Speed of Light in nm/s
 me = 5.10998910e-11     # Electron Mass in eV/c^2 where c is in nm
 
 # Set Data filename and molecule name
-filename = sys.argv[1]
-if len(sys.argv) == 3:
-    molecule = sys.argv[2]
-else:
-    molecule = filename
+filename = []
+molecule = []
 
+for i in range(1, len(sys.argv)):
+  if i % 2 == 0:
+    molecule.append(sys.argv[i])
+  else:
+    filename.append(sys.argv[i])
 
-# Define HOMO Levels Depending on Molecule
-if 'naphthalene' in molecule.lower():
-    HOMO = 5
-    lmultx = 2
-    lmulty = 1
-elif 'anthracene' in molecule.lower():
-    HOMO = 7
-    lmultx = 3
-    lmulty = 1
-elif 'tetracene' in molecule.lower():
-    HOMO = 9
-    lmultx = 4
-    lmulty = 1
-else:
-    print("No defined HOMO level for {0}. Exiting...".format(molecule))
-    quit()
+# Declare Arrays
+HOMO = []
+LUMO = []
+wavelength = []
+absorption = []
 
-# Define LUMO Level
-LUMO = HOMO + 1
+# Make Figure
+fig = plt.figure()
 
-# Molecule Data
-print("Molecule: {0}".format(molecule))
-print("HOMO Level: {0}".format(HOMO))
-print("LUMO Level: {0}".format(LUMO))
+# Declare Plots
+plots = []
 
-with open(filename, 'rb') as datafile:
-    # Get data
-    data = csv.reader(datafile, delimiter=',')
+for m in range(0, len(molecule)):
+  print
+  # Define HOMO Levels Depending on Molecule
+  if 'naphthalene' in molecule[m].lower():
+      HOMO.append(5)
+  elif 'anthracene' in molecule[m].lower():
+      HOMO.append(7)
+  elif 'tetracene' in molecule[m].lower():
+      HOMO.append(9)
+  else:
+      print("No defined HOMO level for {0}. Exiting...".format(molecule[m]))
+      quit()
 
-    # Assign data appropriately
-    wavelength = []
-    absorption = []
-    for row in data:
-        # Throw away beginning peak
-        if(float(row[0]) >= 200):
-            wavelength.append(float(row[0]))
-            absorption.append(float(row[1]))
+  # Define LUMO Level
+  LUMO.append(HOMO[m] + 1)
 
-# Max Wavelength Needed for Analysis
-maxAbsIndex = absorption.index(max(absorption))
-maxWavelength = wavelength[maxAbsIndex]
-print("Wavelength of max absorption: {0} nm".format(maxWavelength))
+  # Molecule Data
+  print("Molecule: {0}".format(molecule[m]))
+  print("HOMO Level: {0}".format(HOMO[m]))
+  print("LUMO Level: {0}".format(LUMO[m]))
 
-# Energy Gap
-# E = hc/lambda
-E = h*c/maxWavelength
-print("Energy gap: {0} eV".format(E))
+  with open(filename[m], 'rb') as datafile:
+      # Get data
+      data = csv.reader(datafile, delimiter=',')
 
-# Get Energy Level Transition
-L = np.sqrt((h**2*LUMO**2)/(8*me*E))
-print("Molecule Length: {1}".format(molecule, L))
+      # Assign data appropriately
+      wavelength.append([])
+      absorption.append([])
+      for row in data:
+          # Throw away beginning peak and ending zeros
+          if float(row[0]) >= 200 and float(row[0]) <= 500:
+              wavelength[m].append(float(row[0]))
+              absorption[m].append(float(row[1]))
+
+  # Max Wavelength Needed for Analysis
+  maxAbsIndex = absorption[m].index(max(absorption[m]))
+  maxWavelength = wavelength[m][maxAbsIndex]
+  print("Wavelength of max absorption: {0} nm".format(maxWavelength))
+
+  # Energy Gap
+  # E = hc/lambda
+  E = h*c/maxWavelength
+  print("Energy gap: {0} eV".format(E))
+
+  # Get Energy Level Transition
+  L = np.sqrt((h**2*LUMO[m]**2)/(8*me*E))
+  print("Molecule Length: {0}".format(L))
+
+  # Create Subplot for this data
+  plots.append(fig.add_subplot(111))
+
+  # Plot Data
+  plots[m].plot(wavelength[m], absorption[m], label=molecule[m])
 
 
 # Plot wavelength/absorption
-plt.plot(wavelength, absorption)
-plt.title("Wavelength vs. Absorption for {0}".format(molecule), fontsize=20)
-plt.axis([min(wavelength), max(wavelength), min(absorption), max(absorption)])
+plt.title("Wavelength vs. Absorption", fontsize=20)
+#plt.axis([min(wavelength), max(wavelength), min(absorption), max(absorption)])
 plt.xlabel(r"$\lambda$ (nm)", fontsize=16)
 plt.ylabel(r"$\log \epsilon$", fontsize=16)
+plt.legend()
 plt.show()
