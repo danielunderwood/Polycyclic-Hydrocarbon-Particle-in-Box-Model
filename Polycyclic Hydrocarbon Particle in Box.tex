@@ -3,10 +3,11 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{graphicx}
 \usepackage[english]{babel}
 
 \author{Daniel Underwood}
-\title{Polycyclic Hydrocarbons Modelled as Particle in Box to Determine Length}
+\title{Polycyclic Aromatic Hydrocarbons Modelled as Particle in Box to Determine Length}
 
 \begin{document}
 \maketitle
@@ -27,9 +28,46 @@ The absorption spectra were obtained with an Ocean Optics USB4000 spectrometer. 
 
 The theoretical length of the molecules were determined with geometry and the bond lengths of 1.40\AA\, for a C--C bond and 1.33\AA \,for a C=C bond. Theoretical lengths for naphthalene, anthracene, and tetracene were found to be 4.84\AA, 7.26\AA, and 9.68\AA, respectively.
 
+\begin{equation}
+E = \frac{hc}{\lambda}
+\end{equation}
+
+Using Equation (1), the energy gap between the HOMO and LUMO levels is able to be determined using the wavelength of the highest absorption for $\lambda$. Using this energy gap with Equation (2) yields the length of the molecule as represented by the infinite square well.
+
+\begin{equation}
+L = \frac{hn}{2} \sqrt{\frac{1}{2 m_e E}}
+\end{equation}
+
 \section*{Results}
+
+The spectroscopic data collected is plotted for all of the molecules in Figure 1. A notable feature of this data is the double peak for naphthalene. The highest absorption in the collected data was located at $287.32\rm{nm}$, so that value is used for the determination of the length of the molecule.
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{plot.png}
+\caption{Wavelength vs. Absorption of Molecules}
+\end{figure}
+
+Table 1 contains the values found experimentally along with their theoretical counterpart and the percent difference of each.
+
+\begin{table}[h]
+\begin{tabular}{cccc}
+Molecule & Experimental Length (\AA) & Theoretical Length (\AA) & \% Difference \\
+\hline
+Naphthalene & 5.91 & 4.81 & 22.87 \\
+Anthracene & 7.41 & 7.26 & 2.07\\
+Tetracene & 9.85 & 9.68 &  1.76
+
+\end{tabular}
+\caption{Results}
+\end{table}
 
 \section*{Discussion}
 
+The largest discrepancy with the experiment is the large difference between experimental and theoretical values of the naphthalene sample. One reasonable explanation for this is the double peak. If the first peak were used, the experimental length would likely be much closer to the theoretical value.
+
+An obvious feature of the results is the fact that the error goes down as the molecule gets larger. A plausible explanation for this is that the limit $N \to \infty$, where $N$ is the number of benzene molecules in the chain, leads to the ideal case of a pure sine wave representing the electrons' locations. As the molecule gets smaller, the potential at the ends is lower and there is a slower exponential decay, resulting in a higher probability of the electrons being farther from the end of the molecule.
+
 \section*{Conclusion}
+
+In conclusion, while this model is not entirely accurate, it makes an excellent approximation for many cases. If a model that also included exponential terms at the ends of the molecules were used, it would have likely reduced the discrepancy between the theoretical and experimental values.
 \end{document}
