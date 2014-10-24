@@ -1,0 +1,21 @@
+
+Molecule: Naphthalene
+HOMO Level: 5
+LUMO Level: 6
+Wavelength of max absorption: 287.05 nm
+Energy gap: 4.31925370284 eV
+Molecule Length: 5.90523894699e-10
+
+Molecule: Anthracene
+HOMO Level: 7
+LUMO Level: 8
+Wavelength of max absorption: 254.27 nm
+Energy gap: 4.87608359382 eV
+Molecule Length: 7.41045710846e-10
+
+Molecule: Tetracene
+HOMO Level: 9
+LUMO Level: 10
+Wavelength of max absorption: 287.32 nm
+Energy gap: 4.31519481902 eV
+Molecule Length: 9.84669256003e-10
