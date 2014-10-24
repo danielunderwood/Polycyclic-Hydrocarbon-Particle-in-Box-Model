@@ -23,16 +23,27 @@ else:
 # Define HOMO Levels Depending on Molecule
 if 'naphthalene' in molecule.lower():
     HOMO = 5
+    lmultx = 2
+    lmulty = 1
 elif 'anthracene' in molecule.lower():
     HOMO = 7
+    lmultx = 3
+    lmulty = 1
 elif 'tetracene' in molecule.lower():
     HOMO = 9
+    lmultx = 4
+    lmulty = 1
 else:
     print("No defined HOMO level for {0}. Exiting...".format(molecule))
     quit()
 
 # Define LUMO Level
 LUMO = HOMO + 1
+
+# Molecule Data
+print("Molecule: {0}".format(molecule))
+print("HOMO Level: {0}".format(HOMO))
+print("LUMO Level: {0}".format(LUMO))
 
 with open(filename, 'rb') as datafile:
     # Get data
@@ -59,7 +70,7 @@ print("Energy gap: {0} eV".format(E))
 
 # Get Energy Level Transition
 L = np.sqrt((h**2*LUMO**2)/(8*me*E))
-print("Length of {0}: {1}".format(molecule, L))
+print("Molecule Length: {1}".format(molecule, L))
 
 
 # Plot wavelength/absorption
@@ -69,5 +80,3 @@ plt.axis([min(wavelength), max(wavelength), min(absorption), max(absorption)])
 plt.xlabel(r"$\lambda$ (nm)", fontsize=16)
 plt.ylabel(r"$\log \epsilon$", fontsize=16)
 plt.show()
-
-
